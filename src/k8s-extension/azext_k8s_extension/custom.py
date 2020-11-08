@@ -97,14 +97,16 @@ def create_k8s_extension(cmd, client, resource_group_name, cluster_name, name, c
                 config_protected_settings[key] = value
 
     # ExtensionType specific conditions
-    if extension_type.lower() == 'azuremonitor-containers':
+    extension_type_lower = extension_type.lower()
+
+    if extension_type_lower == 'azuremonitor-containers' or extension_type_lower == 'arc-azure-defender' :
         create_identity = True
-        # hardcoding  name, release_namespace and scope since ci only supports one instance and cluster scope
+        # hardcoding name, release_namespace and scope since ci & defender only support one instance and cluster scope
         # and platform doesnt have support yet extension specific constraints like this
         logger.warning('Ignoring name, release_namespace and scope parameters since azuremonitor-containers '
                        'only supports cluster scope and single instance of this extension')
-        name = 'azuremonitor-containers'
-        release_namespace = 'azuremonitor-containers'
+        name = extension_type_lower
+        release_namespace = extension_type_lower
         scope = 'cluster'
         if not config_settings:
             config_settings = {}
