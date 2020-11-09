@@ -99,7 +99,7 @@ def create_k8s_extension(cmd, client, resource_group_name, cluster_name, name, c
     # ExtensionType specific conditions
     extension_type_lower = extension_type.lower()
 
-    if extension_type_lower == 'azuremonitor-containers' or extension_type_lower == 'arc-azure-defender' :
+    if extension_type_lower == 'azuremonitor-containers' or extension_type_lower == 'microsoft.azuredefender.kubernetes' :
         create_identity = True
         # hardcoding name, release_namespace and scope since ci & defender only support one instance and cluster scope
         # and platform doesnt have support yet extension specific constraints like this
