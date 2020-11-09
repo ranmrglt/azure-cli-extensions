@@ -113,9 +113,11 @@ def create_k8s_extension(cmd, client, resource_group_name, cluster_name, name, c
 
         if not config_protected_settings:
             config_protected_settings = {}
+            
+        should_ensure_ci_solution = extension_type_lower != 'microsoft.azuredefender.kubernetes'
 
         _get_container_insights_settings(cmd, resource_group_name,
-                                         cluster_name, config_settings, config_protected_settings)
+                                         cluster_name, config_settings, config_protected_settings, should_ensure_ci_solution)
 
     # Determine namespace name
     if scope == 'cluster':
